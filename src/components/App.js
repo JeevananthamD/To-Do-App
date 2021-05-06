@@ -41,15 +41,17 @@ class App extends Component {
 
   submit = e => {
     e.preventDefault();
-    if(this.state.input != "") {
-      const item = {id: new Date().getTime(), text: this.state.input, isComplete: false};
-      this.setState({items: this.state.items.concat(item), input: ""}, () => this.setProgress(this.state.items));
+    if(this.state.input.length === 0) {
+      alert("Pls enter something!");
+      return 0;
     }
+    const item = {id: new Date().getTime(), text: this.state.input, isComplete: false};
+    this.setState({items: this.state.items.concat(item), input: ""}, () => this.setProgress(this.state.items));
   }
 
   isDone = e => {
     let update = this.state.items.map(i => {
-      if(i.id==e) {
+      if(i.id===e) {
         i.isComplete = !i.isComplete;
       }
       return i;
@@ -58,7 +60,7 @@ class App extends Component {
   }
 
   delete = e => {
-    let filtered_items = this.state.items.filter(i => i.id!=e);
+    let filtered_items = this.state.items.filter(i => i.id!==e);
     this.setState({items: filtered_items}, () => this.setProgress(this.state.items));
   }
 
